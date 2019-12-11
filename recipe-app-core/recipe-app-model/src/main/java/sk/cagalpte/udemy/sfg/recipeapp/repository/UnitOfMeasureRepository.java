@@ -6,4 +6,6 @@ import sk.cagalpte.udemy.sfg.recipeapp.repository.map.MapRepository;
 
 @Repository
 public interface UnitOfMeasureRepository extends MapRepository<UnitOfMeasure, Long> {
+
+    public UnitOfMeasure findByUnitOfMeasureDescription(String unitOfMeasureDescription);
 }

@@ -18,7 +18,7 @@ public class UnitOfMeasureDTO {
 
     public UnitOfMeasureDTO(UnitOfMeasureDtoBuilder unitOfMeasureDtoBuilder) {
         this.setId(unitOfMeasureDtoBuilder.id);
-        this.setUnitOfMeasureDescription(unitOfMeasureDtoBuilder.unitOfMeasure);
+        this.setUnitOfMeasureDescription(unitOfMeasureDtoBuilder.unitOfMeasureDescription);
     }
 
     public UnitOfMeasureDtoBuilder createBuilder() {
@@ -59,7 +59,7 @@ public class UnitOfMeasureDTO {
     public static class UnitOfMeasureDtoBuilder {
         private Long id;
 
-        private String unitOfMeasure;
+        private String unitOfMeasureDescription;
 
         public UnitOfMeasureDtoBuilder() {
         }
@@ -69,8 +69,8 @@ public class UnitOfMeasureDTO {
             return this;
         }
 
-        public UnitOfMeasureDtoBuilder unitOfMeasure(String unitOfMeasure) {
-            this.unitOfMeasure = unitOfMeasure;
+        public UnitOfMeasureDtoBuilder unitOfMeasureDescription(String unitOfMeasure) {
+            this.unitOfMeasureDescription = unitOfMeasureDescription;
             return this;
         }
 

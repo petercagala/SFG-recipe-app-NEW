@@ -21,6 +21,11 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
+    public Category findByDescription(String description) {
+        return null;
+    }
+
+    @Override
     public Category save(Category category) {
         return null;
     }

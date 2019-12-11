@@ -21,6 +21,11 @@ public class UnitOfMeasureRepositoryImpl implements UnitOfMeasureRepository {
     }
 
     @Override
+    public UnitOfMeasure findByUnitOfMeasureDescription(String unitOfMeasureDescription) {
+        return null;
+    }
+
+    @Override
     public UnitOfMeasure save(UnitOfMeasure unitOfMeasure) {
         return null;
     }
