@@ -53,7 +53,8 @@ public class RecipeDTO {
     @OneToOne(mappedBy = "recipeDTO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private NotesDTO notesDTO;
 
-    @OneToMany(mappedBy = "recipeDTO", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    // Nemoze tu byt fetch = FetchType.EAGER
+    @OneToMany(mappedBy = "recipeDTO", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<IngredientDTO> ingredientDTOS = new ArrayList<>();
 
     @ManyToMany(mappedBy = "recipeDTOS", fetch = FetchType.EAGER)
@@ -183,6 +184,7 @@ public class RecipeDTO {
     public void setCategoryDTOS(List<CategoryDTO> categoryDTOS) {
         this.categoryDTOS = categoryDTOS;
     }
+
 
     @Override
     public boolean equals(Object o) {
