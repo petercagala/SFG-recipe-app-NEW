@@ -18,6 +18,7 @@ public class IngredientDTO {
 
     // V triede UnitOfMeasureDTO abslutne ziadnu asociaciu nedavame v tomto pripade, nechceme totiz absolutne ziadnu kaskadu medzi nimi
     @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "UNIT_OF_MEASURE_ID")
     private UnitOfMeasureDTO unitOfMeasureDTO;
 
     @ManyToOne
@@ -103,7 +104,7 @@ public class IngredientDTO {
 
         private BigDecimal amount;
 
-        private UnitOfMeasureDTO unitOfMeasureDTO;
+        private     UnitOfMeasureDTO unitOfMeasureDTO;
 
         private RecipeDTO recipeDTO;
 
