@@ -32,8 +32,8 @@ public class NotesDTO {
         this.setRecipeDTO(notesDTOBuilder.recipeDTO);
     }
 
-    public RecipeDTO.RecipeDTOBuilder createBuilder() {
-        return new RecipeDTO.RecipeDTOBuilder();
+    public NotesDTOBuilder createBuilder() {
+        return new NotesDTO.NotesDTOBuilder();
     }
 
     public Long getId() {

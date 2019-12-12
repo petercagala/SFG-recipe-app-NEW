@@ -104,7 +104,7 @@ public class IngredientDTO {
 
         private BigDecimal amount;
 
-        private     UnitOfMeasureDTO unitOfMeasureDTO;
+        private  UnitOfMeasureDTO unitOfMeasureDTO;
 
         private RecipeDTO recipeDTO;
 
@@ -128,6 +128,11 @@ public class IngredientDTO {
 
         public IngredientDTOBuilder unitOfMeasureDTO(UnitOfMeasureDTO unitOfMeasureDTO) {
             this.unitOfMeasureDTO = unitOfMeasureDTO;
+            return this;
+        }
+
+        public IngredientDTOBuilder recipeDTO(RecipeDTO recipeDTO) {
+            this.recipeDTO = recipeDTO;
             return this;
         }
 

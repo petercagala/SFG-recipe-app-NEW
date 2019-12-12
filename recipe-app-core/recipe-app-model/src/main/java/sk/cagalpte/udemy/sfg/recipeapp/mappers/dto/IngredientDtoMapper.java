@@ -15,5 +15,5 @@ public interface IngredientDtoMapper {
     public IngredientDTO ingredintToIngredientDTO(Ingredient ingredient);
 
     @Mapping(target = "id", source = "id")
-    public IngredientDTO ingredientDtoToIngredient(IngredientDTO ingredientDTO);
+    public Ingredient ingredientDtoToIngredient(IngredientDTO ingredientDTO);
 }
