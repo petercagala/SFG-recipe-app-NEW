@@ -17,6 +17,7 @@ public class IngredientDTO {
     private BigDecimal amount;
 
     // V triede UnitOfMeasureDTO abslutne ziadnu asociaciu nedavame v tomto pripade, nechceme totiz absolutne ziadnu kaskadu medzi nimi
+    // thi is UNIDIRECTIONAL relationship: one side (UnitOfMeasureDTO side) will not know about the other
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UNIT_OF_MEASURE_ID")
     private UnitOfMeasureDTO unitOfMeasureDTO;
