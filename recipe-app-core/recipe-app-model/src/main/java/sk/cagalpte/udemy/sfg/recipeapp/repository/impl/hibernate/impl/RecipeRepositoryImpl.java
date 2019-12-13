@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
 import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.RecipeDtoMapper;
+import sk.cagalpte.udemy.sfg.recipeapp.repository.CategoryRepository;
+import sk.cagalpte.udemy.sfg.recipeapp.repository.IngredientRepository;
+import sk.cagalpte.udemy.sfg.recipeapp.repository.NotesRepository;
 import sk.cagalpte.udemy.sfg.recipeapp.repository.RecipeRepository;
 import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.RecipeRepositoryHibernate;
 
@@ -19,9 +22,20 @@ public class RecipeRepositoryImpl implements RecipeRepository {
 
     private final RecipeDtoMapper recipeDtoMapper;
 
-    public RecipeRepositoryImpl(RecipeRepositoryHibernate recipeRepositoryHibernate, RecipeDtoMapper recipeDtoMapper) {
+    private final NotesRepository notesRepository;
+
+    private final IngredientRepository ingredientRepository;
+
+    private final CategoryRepository categoryRepository;
+
+
+
+    public RecipeRepositoryImpl(RecipeRepositoryHibernate recipeRepositoryHibernate, RecipeDtoMapper recipeDtoMapper, NotesRepository notesRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository) {
         this.recipeRepositoryHibernate = recipeRepositoryHibernate;
         this.recipeDtoMapper = recipeDtoMapper;
+        this.notesRepository = notesRepository;
+        this.ingredientRepository = ingredientRepository;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -29,14 +43,22 @@ public class RecipeRepositoryImpl implements RecipeRepository {
     public List<Recipe> findAll() {
         List<Recipe> recipes = this.recipeRepositoryHibernate.findAll().stream()
                 .map(recipeDTO -> {
-                    return this.recipeDtoMapper.recipeDtoToRecipe(recipeDTO);
+                    Recipe recipe = this.recipeDtoMapper.recipeDtoToRecipe(recipeDTO);
+                    recipe.setNotes(this.notesRepository.findByRecipe(recipe));
+                    recipe.setIngredients(this.ingredientRepository.findAllByRecipe(recipe));
+                    recipe.setCategory(this.categoryRepository.findAllByRecipe(recipe));
+                    return recipe;
                 }).collect(Collectors.toList());
         return recipes;
     }
 
     @Override
     public Recipe findById(Long id) {
-        return this.recipeDtoMapper.recipeDtoToRecipe(this.recipeRepositoryHibernate.findById(id).orElse(null));
+        Recipe recipe = this.recipeDtoMapper.recipeDtoToRecipe(this.recipeRepositoryHibernate.findById(id).orElse(null));
+        recipe.setNotes(this.notesRepository.findByRecipe(recipe));
+        recipe.setIngredients(this.ingredientRepository.findAllByRecipe(recipe));
+        recipe.setCategory(this.categoryRepository.findAllByRecipe(recipe));
+        return recipe;
     }
 
     @Override

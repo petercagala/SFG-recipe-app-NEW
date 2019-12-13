@@ -2,7 +2,9 @@ package sk.cagalpte.udemy.sfg.recipeapp.domain;
 
 import sk.cagalpte.udemy.sfg.recipeapp.enums.Difficulty;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Recipe {
@@ -25,6 +27,12 @@ public class Recipe {
     private Byte[] images;
 
     private Difficulty difficulty;
+
+    private Notes notes;
+
+    private List<Ingredient> ingredients = new ArrayList<>();
+
+    private List<Category> category = new ArrayList<>();
 
     public Recipe() {
     }
@@ -50,9 +58,12 @@ public class Recipe {
         this.setServings(recipeBuilder.servings);
         this.setSource(recipeBuilder.source);
         this.setUrl(recipeBuilder.url);
-        this.setDescription(recipeBuilder.directions);
+        this.setDirections(recipeBuilder.directions);
         this.setImages(recipeBuilder.images);
         this.setDifficulty(recipeBuilder.difficulty);
+        this.setNotes(recipeBuilder.notes);
+        this.setIngredients(recipeBuilder.ingredients);
+        this.setCategory(recipeBuilder.category);
     }
 
     public RecipeBuilder createBuilder() {
@@ -139,6 +150,30 @@ public class Recipe {
         this.difficulty = difficulty;
     }
 
+    public Notes getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Notes notes) {
+        this.notes = notes;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<Category> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<Category> category) {
+        this.category = category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -153,12 +188,15 @@ public class Recipe {
                 Objects.equals(url, recipe.url) &&
                 Objects.equals(directions, recipe.directions) &&
                 Arrays.equals(images, recipe.images) &&
-                difficulty == recipe.difficulty;
+                difficulty == recipe.difficulty &&
+                Objects.equals(notes, recipe.notes) &&
+                Objects.equals(ingredients, recipe.ingredients) &&
+                Objects.equals(category, recipe.category);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, description, prepTime, cookTime, servings, source, url, directions, difficulty);
+        int result = Objects.hash(id, description, prepTime, cookTime, servings, source, url, directions, difficulty, notes, ingredients, category);
         result = 31 * result + Arrays.hashCode(images);
         return result;
     }
@@ -183,6 +221,12 @@ public class Recipe {
         private Byte[] images;
 
         private Difficulty difficulty;
+
+        private Notes notes;
+
+        private List<Ingredient> ingredients = new ArrayList<>();
+
+        private List<Category> category = new ArrayList<>();
 
         public RecipeBuilder id(Long id) {
             this.id = id;
@@ -231,6 +275,21 @@ public class Recipe {
 
         public RecipeBuilder difficulty(Difficulty difficulty) {
             this.difficulty = difficulty;
+            return this;
+        }
+
+        public RecipeBuilder notes(Notes notes) {
+            this.notes = notes;
+            return this;
+        }
+
+        public RecipeBuilder addIngredient(Ingredient ingredient) {
+            this.ingredients.add(ingredient);
+            return this;
+        }
+
+        public RecipeBuilder addCategory(Category category) {
+            this.category.add(category);
             return this;
         }
 

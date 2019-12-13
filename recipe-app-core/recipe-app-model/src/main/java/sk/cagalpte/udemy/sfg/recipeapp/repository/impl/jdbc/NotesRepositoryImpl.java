@@ -3,6 +3,7 @@ package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.jdbc;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Notes;
+import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
 import sk.cagalpte.udemy.sfg.recipeapp.repository.NotesRepository;
 
 import java.util.List;
@@ -17,6 +18,11 @@ public class NotesRepositoryImpl implements NotesRepository {
 
     @Override
     public Notes findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public Notes findByRecipe(Recipe recipe) {
         return null;
     }
 

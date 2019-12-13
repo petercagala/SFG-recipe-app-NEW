@@ -34,6 +34,7 @@ public class RecipeDTO {
     private String url;
 
     @Column(name = "DIRECTIONS")
+    @Lob
     private String directions;
 
     @Column(name = "IMAGES")

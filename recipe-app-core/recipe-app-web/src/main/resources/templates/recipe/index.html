@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe Page</title>
+</head>
+<body>
+    <h2>Recipes Overview</h2>
+    <p >
+         <table th:each="recipe: ${recipes}">
+             <thead>
+               <tr>
+                   <td>ID</td>
+                   <td>Description</td>
+                   <td>Prepared Time</td>
+                   <td>Cooking Time</td>
+                   <td>Servings</td>
+                   <td>Source</td>
+                   <td>URL</td>
+                   <td>Directions</td>
+               </tr>
+             </thead>
+             <tbody>
+                <tr>
+                    <td th:text="${recipe.getId()}"></td>
+                    <td th:text="${recipe.getDescription()}"></td>
+                    <td th:text="${recipe.getPrepTime()}"></td>
+                    <td th:text="${recipe.getCookTime()}"></td>
+                    <td th:text="${recipe.getServings()}"></td>
+                    <td th:text="${recipe.getSource()}"></td>
+                    <td th:text="${recipe.getUrl()}"></td>
+                    <td th:text="${recipe.getDirections()}"></td>
+                </tr>
+<!--                <title th:text="${recipe.getNotes().getRecipeNotes()}"></title>-->
+             </tbody>
+            <th:block th:text="${recipe.getNotes().getRecipeNotes()}"></th:block>
+         </table>
+    </p>
+
+
+</body>
+</html>

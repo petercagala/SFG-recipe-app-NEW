@@ -12,8 +12,10 @@ public interface NotesDtoMapper {
     public final NotesDtoMapper INSTANCE = Mappers.getMapper(NotesDtoMapper.class);
 
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "recipe", target = "recipeDTO")
     public NotesDTO notesToNotesDto(Notes notes);
 
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "recipeDTO", target = "recipe")
     public Notes notesDTOtoNotes(NotesDTO notesDTO);
 }

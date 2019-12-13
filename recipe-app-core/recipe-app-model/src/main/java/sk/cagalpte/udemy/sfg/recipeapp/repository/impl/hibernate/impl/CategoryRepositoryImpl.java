@@ -3,11 +3,16 @@ package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.impl;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Category;
+import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
 import sk.cagalpte.udemy.sfg.recipeapp.dto.CategoryDTO;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.CategoryDtoMapper;
+import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.RecipeDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.repository.CategoryRepository;
 import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.CategoryRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.RecipeRepositoryHibernate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,9 +24,15 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     private final CategoryDtoMapper categoryDtoMapper;
 
-    public CategoryRepositoryImpl(CategoryRepositoryHibernate categoryRepositoryHibernate, CategoryDtoMapper categoryDtoMapper) {
+    private final RecipeRepositoryHibernate recipeRepositoryHibernate;
+
+    private final RecipeDtoMapper recipeDtoMapper;
+
+    public CategoryRepositoryImpl(CategoryRepositoryHibernate categoryRepositoryHibernate, CategoryDtoMapper categoryDtoMapper, RecipeRepositoryHibernate recipeRepositoryHibernate, RecipeDtoMapper recipeDtoMapper) {
         this.categoryRepositoryHibernate = categoryRepositoryHibernate;
         this.categoryDtoMapper = categoryDtoMapper;
+        this.recipeRepositoryHibernate = recipeRepositoryHibernate;
+        this.recipeDtoMapper = recipeDtoMapper;
     }
 
 
@@ -40,14 +51,31 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
+    public List<Category> findAllByRecipe(Recipe recipe) {
+        RecipeDTO recipeDTO = this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null);
+        List<CategoryDTO> categoryDTOS = this.categoryRepositoryHibernate.findAllByRecipeDTOS(recipeDTO);
+        List<Category> categories = categoryDTOS.stream()
+                .map(categoryDTO -> {
+                    return this.categoryDtoMapper.categoryDtoToCategory(categoryDTO);
+                }).collect(Collectors.toList());
+        return categories;
+    }
+
+    @Override
     public Category findByDescription(String description) {
         return this.categoryDtoMapper.categoryDtoToCategory(this.categoryRepositoryHibernate.findByDescription(description).orElse(null));
     }
 
     @Override
     public Category save(Category category) {
+        List<RecipeDTO> recipeDTOS = new ArrayList<>();
+        for(Recipe recipe: category.getRecipes()) {
+            recipeDTOS.add(this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null));
+        }
+
         CategoryDTO categoryDTO = new CategoryDTO().createBuilder()
                 .description(category.getDescription())
+                .recipeDTOS(recipeDTOS)
                 .build();
         CategoryDTO categoryDTOSaved = this.categoryRepositoryHibernate.save(categoryDTO);
 

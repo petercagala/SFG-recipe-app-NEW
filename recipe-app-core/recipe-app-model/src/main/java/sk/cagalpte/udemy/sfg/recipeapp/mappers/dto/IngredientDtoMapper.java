@@ -12,8 +12,10 @@ public interface IngredientDtoMapper {
     public final IngredientDtoMapper INSTANCE = Mappers.getMapper(IngredientDtoMapper.class);
 
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "recipe", target = "recipeDTO")
     public IngredientDTO ingredintToIngredientDTO(Ingredient ingredient);
 
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "recipe", source = "recipeDTO")
     public Ingredient ingredientDtoToIngredient(IngredientDTO ingredientDTO);
 }

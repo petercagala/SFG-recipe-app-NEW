@@ -3,6 +3,8 @@ package sk.cagalpte.udemy.sfg.recipeapp.domain;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Category {
@@ -12,6 +14,8 @@ public class Category {
 
     @NonNull
     private String description;
+
+    private List<Recipe> recipes = new ArrayList<>();
 
     public Category() {
     }
@@ -24,6 +28,7 @@ public class Category {
     public Category(CategoryBuilder categoryBuilder) {
         this.setId(categoryBuilder.id);
         this.setDescription(categoryBuilder.description);
+        this.setRecipes(categoryBuilder.recipes);
     }
 
     public CategoryBuilder createBuilder() {
@@ -47,6 +52,18 @@ public class Category {
         this.description = description;
     }
 
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
+    public void addRecipe(Recipe recipe) {
+        this.recipes.add(recipe);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,6 +83,8 @@ public class Category {
 
         private String description;
 
+        private List<Recipe> recipes = new ArrayList<>();
+
         public CategoryBuilder() {
         }
 
@@ -76,6 +95,11 @@ public class Category {
 
         public CategoryBuilder description(String description) {
             this.description = description;
+            return this;
+        }
+
+        public CategoryBuilder recipes(List<Recipe> recipes) {
+            this.recipes = recipes;
             return this;
         }
 

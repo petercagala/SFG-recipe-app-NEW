@@ -3,6 +3,7 @@ package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.jdbc;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Ingredient;
+import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
 import sk.cagalpte.udemy.sfg.recipeapp.repository.IngredientRepository;
 
 import java.util.List;
@@ -18,6 +19,11 @@ public class IngredientRepositoryImpl implements IngredientRepository {
 
     @Override
     public Ingredient findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<Ingredient> findAllByRecipe(Recipe recipe) {
         return null;
     }
 

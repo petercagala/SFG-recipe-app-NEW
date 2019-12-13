@@ -3,11 +3,14 @@ package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.impl;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Notes;
+import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
 import sk.cagalpte.udemy.sfg.recipeapp.dto.NotesDTO;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.NotesDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.RecipeDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.repository.NotesRepository;
 import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.NotesRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.RecipeRepositoryHibernate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,10 +25,13 @@ public class NotesRepositoryImpl implements NotesRepository {
 
     private final RecipeDtoMapper recipeDtoMapper;
 
-    public NotesRepositoryImpl(NotesRepositoryHibernate notesRepositoryHibernate, NotesDtoMapper notesDtoMapper, RecipeDtoMapper recipeDtoMapper) {
+    private final RecipeRepositoryHibernate recipeRepositoryHibernate;
+
+    public NotesRepositoryImpl(NotesRepositoryHibernate notesRepositoryHibernate, NotesDtoMapper notesDtoMapper, RecipeDtoMapper recipeDtoMapper, RecipeRepositoryHibernate recipeRepositoryHibernate) {
         this.notesRepositoryHibernate = notesRepositoryHibernate;
         this.notesDtoMapper = notesDtoMapper;
         this.recipeDtoMapper = recipeDtoMapper;
+        this.recipeRepositoryHibernate = recipeRepositoryHibernate;
     }
 
     @Override
@@ -43,10 +49,17 @@ public class NotesRepositoryImpl implements NotesRepository {
     }
 
     @Override
+    public Notes findByRecipe(Recipe recipe) {
+        RecipeDTO recipeDTO = this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null);
+        NotesDTO notesDTO = this.notesRepositoryHibernate.findByRecipeDTO(recipeDTO);
+        return this.notesDtoMapper.notesDTOtoNotes(notesDTO);
+    }
+
+    @Override
     public Notes save(Notes notes) {
         NotesDTO notesDTO = new NotesDTO().createBuilder()
                 .recipeNotes(notes.getRecipeNotes())
-                .recipeDTO(this.recipeDtoMapper.recipeToRecipeDTO(notes.getRecipe()))
+                .recipeDTO(this.recipeRepositoryHibernate.findById(notes.getRecipe().getId()).orElse(null))
                 .build();
         NotesDTO notesDtoSaved = this.notesRepositoryHibernate.save(notesDTO);
         return this.notesDtoMapper.notesDTOtoNotes(notesDtoSaved);
