@@ -10,10 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "recipe")
-public class RecipeDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class RecipeDTO extends BasedEntityDTO {
 
     @Column(name = "DESCRIPTION")
     private String description;
@@ -65,7 +62,8 @@ public class RecipeDTO {
     }
 
     public RecipeDTO(RecipeDTOBuilder recipeDTOBuilder) {
-        this.setId(recipeDTOBuilder.id);
+        super(recipeDTOBuilder);
+
         this.setDescription(recipeDTOBuilder.description);
         this.setPrepTime(recipeDTOBuilder.prepTime);
         this.setCookTime(recipeDTOBuilder.cookTime);
@@ -80,14 +78,6 @@ public class RecipeDTO {
 
     public RecipeDTOBuilder createBuilder() {
         return new RecipeDTO.RecipeDTOBuilder();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -186,14 +176,13 @@ public class RecipeDTO {
         this.categoryDTOS = categoryDTOS;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         RecipeDTO recipeDTO = (RecipeDTO) o;
-        return Objects.equals(id, recipeDTO.id) &&
-                Objects.equals(description, recipeDTO.description) &&
+        return Objects.equals(description, recipeDTO.description) &&
                 Objects.equals(prepTime, recipeDTO.prepTime) &&
                 Objects.equals(cookTime, recipeDTO.cookTime) &&
                 Objects.equals(servings, recipeDTO.servings) &&
@@ -209,39 +198,39 @@ public class RecipeDTO {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, description, prepTime, cookTime, servings, source, url, directions, difficulty, notesDTO, ingredientDTOS, categoryDTOS);
+        int result = Objects.hash(super.hashCode(), description, prepTime, cookTime, servings, source, url, directions, difficulty, notesDTO, ingredientDTOS, categoryDTOS);
         result = 31 * result + Arrays.hashCode(images);
         return result;
     }
 
-    public static class RecipeDTOBuilder {
-        private Long id;
+    public static class RecipeDTOBuilder extends BasedEntityDTOBuilder {
 
-        private String description;
+        protected String description;
 
-        private Integer prepTime;
+        protected Integer prepTime;
 
-        private Integer cookTime;
+        protected Integer cookTime;
 
-        private Integer servings;
+        protected Integer servings;
 
-        private String source;
+        protected String source;
 
-        private String url;
+        protected String url;
 
-        private String directions;
+        protected String directions;
 
-        private Byte[] images;
+        protected Byte[] images;
 
-        private Difficulty difficulty;
+        protected Difficulty difficulty;
 
-        List<CategoryDTO> categoryDTOS;
+        protected List<CategoryDTO> categoryDTOS;
 
         public RecipeDTOBuilder() {
         }
 
+        @Override
         public RecipeDTOBuilder id(Long id) {
-            this.id = id;
+             super.id(id);
             return this;
         }
 

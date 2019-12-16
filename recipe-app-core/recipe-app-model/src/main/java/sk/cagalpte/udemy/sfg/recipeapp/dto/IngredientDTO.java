@@ -5,10 +5,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity(name = "ingredient")
-public class IngredientDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class IngredientDTO extends BasedEntityDTO {
 
     @Column(name = "DESCRIPTION")
     private String description;
@@ -30,7 +27,8 @@ public class IngredientDTO {
     }
 
     public IngredientDTO(IngredientDTOBuilder ingredientDTOBuilder) {
-        this.setId(ingredientDTOBuilder.id);
+        super(ingredientDTOBuilder);
+
         this.setDescription(ingredientDTOBuilder.description);
         this.setAmount(ingredientDTOBuilder.amount);
         this.setRecipeDTO(ingredientDTOBuilder.recipeDTO);
@@ -39,15 +37,6 @@ public class IngredientDTO {
 
     public IngredientDTOBuilder createBuilder() {
         return new IngredientDTO.IngredientDTOBuilder();
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -86,34 +75,35 @@ public class IngredientDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         IngredientDTO that = (IngredientDTO) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(description, that.description) &&
+        return Objects.equals(description, that.description) &&
                 Objects.equals(amount, that.amount) &&
+                Objects.equals(unitOfMeasureDTO, that.unitOfMeasureDTO) &&
                 Objects.equals(recipeDTO, that.recipeDTO);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, amount, recipeDTO);
+        return Objects.hash(super.hashCode(), description, amount, unitOfMeasureDTO, recipeDTO);
     }
 
-    public static class IngredientDTOBuilder {
-        private Long id;
+    public static class IngredientDTOBuilder extends BasedEntityDTOBuilder {
 
-        private String description;
+        protected String description;
 
-        private BigDecimal amount;
+        protected BigDecimal amount;
 
-        private  UnitOfMeasureDTO unitOfMeasureDTO;
+        protected  UnitOfMeasureDTO unitOfMeasureDTO;
 
-        private RecipeDTO recipeDTO;
+        protected RecipeDTO recipeDTO;
 
         public IngredientDTOBuilder() {
         }
 
+        @Override
         public IngredientDTOBuilder id(Long id) {
-            this.id = id;
+             super.id(id);
             return this;
         }
 

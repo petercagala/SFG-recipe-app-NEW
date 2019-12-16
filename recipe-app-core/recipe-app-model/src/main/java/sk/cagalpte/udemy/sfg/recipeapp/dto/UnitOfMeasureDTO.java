@@ -4,11 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "unit_of_measure")
-public class UnitOfMeasureDTO {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UnitOfMeasureDTO extends BasedEntityDTO {
 
     @Column(name = "UNIT_OF_MEASURE_DESCRIPTION")
     private String unitOfMeasureDescription;
@@ -17,20 +13,13 @@ public class UnitOfMeasureDTO {
     }
 
     public UnitOfMeasureDTO(UnitOfMeasureDtoBuilder unitOfMeasureDtoBuilder) {
-        this.setId(unitOfMeasureDtoBuilder.id);
+        super(unitOfMeasureDtoBuilder);
+
         this.setUnitOfMeasureDescription(unitOfMeasureDtoBuilder.unitOfMeasureDescription);
     }
 
     public UnitOfMeasureDtoBuilder createBuilder() {
         return new UnitOfMeasureDTO.UnitOfMeasureDtoBuilder();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUnitOfMeasureDescription() {
@@ -43,29 +32,27 @@ public class UnitOfMeasureDTO {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         UnitOfMeasureDTO that = (UnitOfMeasureDTO) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(unitOfMeasureDescription, that.unitOfMeasureDescription);
+        return Objects.equals(unitOfMeasureDescription, that.unitOfMeasureDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, unitOfMeasureDescription);
+        return Objects.hash(super.hashCode(), unitOfMeasureDescription);
     }
 
-    public static class UnitOfMeasureDtoBuilder {
-        private Long id;
-
+    public static class UnitOfMeasureDtoBuilder extends BasedEntityDTOBuilder {
         private String unitOfMeasureDescription;
 
         public UnitOfMeasureDtoBuilder() {
         }
 
+        @Override
         public UnitOfMeasureDtoBuilder id(Long id) {
-            this.id = id;
+             super.id(id);
             return this;
         }
 

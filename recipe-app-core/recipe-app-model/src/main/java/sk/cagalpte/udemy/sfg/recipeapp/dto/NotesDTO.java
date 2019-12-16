@@ -4,11 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "notes")
-public class NotesDTO {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class NotesDTO extends BasedEntityDTO {
 
     @Column(name = "RECIPE_NOTES")
     @Lob
@@ -27,21 +23,14 @@ public class NotesDTO {
     }
 
     public NotesDTO(NotesDTOBuilder notesDTOBuilder) {
-        this.setId(notesDTOBuilder.id);
+        super(notesDTOBuilder);
+
         this.setRecipeNotes(notesDTOBuilder.recipeNotes);
         this.setRecipeDTO(notesDTOBuilder.recipeDTO);
     }
 
     public NotesDTOBuilder createBuilder() {
         return new NotesDTO.NotesDTOBuilder();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getRecipeNotes() {
@@ -64,29 +53,29 @@ public class NotesDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         NotesDTO notesDTO = (NotesDTO) o;
-        return Objects.equals(id, notesDTO.id) &&
-                Objects.equals(recipeNotes, notesDTO.recipeNotes) &&
+        return Objects.equals(recipeNotes, notesDTO.recipeNotes) &&
                 Objects.equals(recipeDTO, notesDTO.recipeDTO);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, recipeNotes, recipeDTO);
+        return Objects.hash(super.hashCode(), recipeNotes, recipeDTO);
     }
 
-    public static class NotesDTOBuilder {
-        private Long id;
+    public static class NotesDTOBuilder extends BasedEntityDTOBuilder {
 
-        private String recipeNotes;
+        protected String recipeNotes;
 
-        private RecipeDTO recipeDTO;
+        protected RecipeDTO recipeDTO;
 
         public NotesDTOBuilder() {
         }
 
+        @Override
         public NotesDTOBuilder id(Long id) {
-            this.id = id;
+             super.id(id);
             return this;
         }
 
