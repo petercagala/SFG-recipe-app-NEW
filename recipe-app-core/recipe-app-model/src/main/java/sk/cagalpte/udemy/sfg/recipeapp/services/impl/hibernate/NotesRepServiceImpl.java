@@ -1,23 +1,23 @@
-package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.impl;
+package sk.cagalpte.udemy.sfg.recipeapp.services.impl.hibernate;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Notes;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
 import sk.cagalpte.udemy.sfg.recipeapp.dto.NotesDTO;
 import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.NotesDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.RecipeDtoMapper;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.NotesRepository;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.NotesRepositoryHibernate;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.RecipeRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repositories.NotesRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repositories.RecipeRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.services.NotesRepService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Profile("hibernate")
-@Repository
-public class NotesRepositoryImpl implements NotesRepository {
+@Service
+public class NotesRepServiceImpl implements NotesRepService {
 
     private final NotesRepositoryHibernate notesRepositoryHibernate;
 
@@ -27,7 +27,7 @@ public class NotesRepositoryImpl implements NotesRepository {
 
     private final RecipeRepositoryHibernate recipeRepositoryHibernate;
 
-    public NotesRepositoryImpl(NotesRepositoryHibernate notesRepositoryHibernate, NotesDtoMapper notesDtoMapper, RecipeDtoMapper recipeDtoMapper, RecipeRepositoryHibernate recipeRepositoryHibernate) {
+    public NotesRepServiceImpl(NotesRepositoryHibernate notesRepositoryHibernate, NotesDtoMapper notesDtoMapper, RecipeDtoMapper recipeDtoMapper, RecipeRepositoryHibernate recipeRepositoryHibernate) {
         this.notesRepositoryHibernate = notesRepositoryHibernate;
         this.notesDtoMapper = notesDtoMapper;
         this.recipeDtoMapper = recipeDtoMapper;

@@ -1,15 +1,15 @@
-package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.jdbc;
+package sk.cagalpte.udemy.sfg.recipeapp.services.impl.jdbc;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.UnitOfMeasure;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.UnitOfMeasureRepository;
+import sk.cagalpte.udemy.sfg.recipeapp.services.UnitOfMeasureRepService;
 
 import java.util.List;
 
 @Profile("jdbc")
-@Repository
-public class UnitOfMeasureRepositoryImpl implements UnitOfMeasureRepository {
+@Service
+public class UnitOfMeasureRepServiceImpl implements UnitOfMeasureRepService {
     @Override
     public List<UnitOfMeasure> findAll() {
         return null;

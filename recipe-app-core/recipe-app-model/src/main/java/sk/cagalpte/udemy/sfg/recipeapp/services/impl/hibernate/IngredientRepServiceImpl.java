@@ -1,7 +1,7 @@
-package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.impl;
+package sk.cagalpte.udemy.sfg.recipeapp.services.impl.hibernate;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Ingredient;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
 import sk.cagalpte.udemy.sfg.recipeapp.dto.IngredientDTO;
@@ -9,17 +9,17 @@ import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.IngredientDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.RecipeDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.UnitOfMeasureDtoMapper;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.IngredientRepository;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.IngredientRepositoryHibernate;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.RecipeRepositoryHibernate;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.UnitOfMeasureRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repositories.IngredientRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repositories.RecipeRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repositories.UnitOfMeasureRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.services.IngredientRepService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Profile("hibernate")
-@Repository
-public class IngredientRepositoryImpl implements IngredientRepository {
+@Service
+public class IngredientRepServiceImpl implements IngredientRepService {
 
     private final IngredientRepositoryHibernate ingredientRepositoryHibernate;
 
@@ -33,7 +33,7 @@ public class IngredientRepositoryImpl implements IngredientRepository {
 
     private final RecipeDtoMapper recipeDtoMapper;
 
-    public IngredientRepositoryImpl(IngredientRepositoryHibernate ingredientRepositoryHibernate, UnitOfMeasureRepositoryHibernate unitOfMeasureRepositoryHibernate, RecipeRepositoryHibernate recipeRepositoryHibernate, IngredientDtoMapper ingredientDtoMapper, UnitOfMeasureDtoMapper unitOfMeasureDtoMapper, RecipeDtoMapper recipeDtoMapper) {
+    public IngredientRepServiceImpl(IngredientRepositoryHibernate ingredientRepositoryHibernate, UnitOfMeasureRepositoryHibernate unitOfMeasureRepositoryHibernate, RecipeRepositoryHibernate recipeRepositoryHibernate, IngredientDtoMapper ingredientDtoMapper, UnitOfMeasureDtoMapper unitOfMeasureDtoMapper, RecipeDtoMapper recipeDtoMapper) {
         this.ingredientRepositoryHibernate = ingredientRepositoryHibernate;
         this.unitOfMeasureRepositoryHibernate = unitOfMeasureRepositoryHibernate;
         this.recipeRepositoryHibernate = recipeRepositoryHibernate;

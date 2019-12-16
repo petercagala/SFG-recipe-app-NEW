@@ -1,24 +1,24 @@
-package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.impl;
+package sk.cagalpte.udemy.sfg.recipeapp.services.impl.hibernate;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Category;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
 import sk.cagalpte.udemy.sfg.recipeapp.dto.CategoryDTO;
 import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.CategoryDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.RecipeDtoMapper;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.CategoryRepository;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.CategoryRepositoryHibernate;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.RecipeRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repositories.CategoryRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repositories.RecipeRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.services.CategoryRepService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Profile("hibernate")
-@Repository
-public class CategoryRepositoryImpl implements CategoryRepository {
+@Service
+public class CategoryRepServiceImpl implements CategoryRepService {
 
     private final CategoryRepositoryHibernate categoryRepositoryHibernate;
 
@@ -28,7 +28,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     private final RecipeDtoMapper recipeDtoMapper;
 
-    public CategoryRepositoryImpl(CategoryRepositoryHibernate categoryRepositoryHibernate, CategoryDtoMapper categoryDtoMapper, RecipeRepositoryHibernate recipeRepositoryHibernate, RecipeDtoMapper recipeDtoMapper) {
+    public CategoryRepServiceImpl(CategoryRepositoryHibernate categoryRepositoryHibernate, CategoryDtoMapper categoryDtoMapper, RecipeRepositoryHibernate recipeRepositoryHibernate, RecipeDtoMapper recipeDtoMapper) {
         this.categoryRepositoryHibernate = categoryRepositoryHibernate;
         this.categoryDtoMapper = categoryDtoMapper;
         this.recipeRepositoryHibernate = recipeRepositoryHibernate;

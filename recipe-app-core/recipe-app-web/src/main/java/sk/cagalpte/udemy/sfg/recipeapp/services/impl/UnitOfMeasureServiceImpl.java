@@ -2,7 +2,7 @@ package sk.cagalpte.udemy.sfg.recipeapp.services.impl;
 
 import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.UnitOfMeasure;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.UnitOfMeasureRepository;
+import sk.cagalpte.udemy.sfg.recipeapp.services.UnitOfMeasureRepService;
 import sk.cagalpte.udemy.sfg.recipeapp.services.UnitOfMeasureService;
 
 import java.util.List;
@@ -10,30 +10,30 @@ import java.util.List;
 @Service
 public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
 
-    private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final UnitOfMeasureRepService unitOfMeasureRepService;
 
-    public UnitOfMeasureServiceImpl(UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public UnitOfMeasureServiceImpl(UnitOfMeasureRepService unitOfMeasureRepService) {
+        this.unitOfMeasureRepService = unitOfMeasureRepService;
     }
 
     @Override
     public UnitOfMeasure findByUnitOfMeasureDescription(String unitOfMeasureDescription) {
-        return this.unitOfMeasureRepository.findByUnitOfMeasureDescription(unitOfMeasureDescription);
+        return this.unitOfMeasureRepService.findByUnitOfMeasureDescription(unitOfMeasureDescription);
     }
 
     @Override
     public List<UnitOfMeasure> findAll() {
-        return this.unitOfMeasureRepository.findAll();
+        return this.unitOfMeasureRepService.findAll();
     }
 
     @Override
     public UnitOfMeasure findById(Long id) {
-        return this.unitOfMeasureRepository.findById(id);
+        return this.unitOfMeasureRepService.findById(id);
     }
 
     @Override
     public UnitOfMeasure save(UnitOfMeasure unitOfMeasure) {
-        return this.unitOfMeasureRepository.save(unitOfMeasure);
+        return this.unitOfMeasureRepService.save(unitOfMeasure);
     }
 
     @Override
@@ -43,6 +43,6 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
 
     @Override
     public void deleteById(Long id) {
-        this.unitOfMeasureRepository.deleteById(id);
+        this.unitOfMeasureRepService.deleteById(id);
     }
 }

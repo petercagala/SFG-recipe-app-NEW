@@ -1,25 +1,25 @@
-package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.impl;
+package sk.cagalpte.udemy.sfg.recipeapp.services.impl.hibernate;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.UnitOfMeasure;
 import sk.cagalpte.udemy.sfg.recipeapp.dto.UnitOfMeasureDTO;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.UnitOfMeasureDtoMapper;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.UnitOfMeasureRepository;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.UnitOfMeasureRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repositories.UnitOfMeasureRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.services.UnitOfMeasureRepService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Profile("hibernate")
-@Repository
-public class UnitOfMeasureRepositoryImpl implements UnitOfMeasureRepository {
+@Service
+public class UnitOfMeasureRepServiceImpl implements UnitOfMeasureRepService {
 
     private final UnitOfMeasureRepositoryHibernate unitOfMeasureRepositoryHibernate;
 
     private final UnitOfMeasureDtoMapper unitOfMeasureDtoMapper;
 
-    public UnitOfMeasureRepositoryImpl(UnitOfMeasureRepositoryHibernate unitOfMeasureRepositoryHibernate, UnitOfMeasureDtoMapper unitOfMeasureDtoMapper) {
+    public UnitOfMeasureRepServiceImpl(UnitOfMeasureRepositoryHibernate unitOfMeasureRepositoryHibernate, UnitOfMeasureDtoMapper unitOfMeasureDtoMapper) {
         this.unitOfMeasureRepositoryHibernate = unitOfMeasureRepositoryHibernate;
         this.unitOfMeasureDtoMapper = unitOfMeasureDtoMapper;
     }

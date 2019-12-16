@@ -1,15 +1,15 @@
-package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.jdbc;
+package sk.cagalpte.udemy.sfg.recipeapp.services.impl.jdbc;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.RecipeRepository;
+import sk.cagalpte.udemy.sfg.recipeapp.services.RecipeRepService;
 
 import java.util.List;
 
 @Profile("jdbc")
-@Repository
-public class RecipeRepositoryImpl implements RecipeRepository {
+@Service
+public class RecipeRepServiceImpl implements RecipeRepService {
     @Override
     public List<Recipe> findAll() {
         return null;

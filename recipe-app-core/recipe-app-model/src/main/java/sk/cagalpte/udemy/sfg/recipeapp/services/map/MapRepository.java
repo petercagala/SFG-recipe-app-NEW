@@ -1,4 +1,4 @@
-package sk.cagalpte.udemy.sfg.recipeapp.repository.map;
+package sk.cagalpte.udemy.sfg.recipeapp.services.map;
 
 import java.util.List;
 

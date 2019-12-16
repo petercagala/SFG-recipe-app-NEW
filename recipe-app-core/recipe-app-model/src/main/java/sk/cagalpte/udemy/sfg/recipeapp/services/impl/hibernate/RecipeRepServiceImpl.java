@@ -1,41 +1,41 @@
-package sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.impl;
+package sk.cagalpte.udemy.sfg.recipeapp.services.impl.hibernate;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
 import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.RecipeDtoMapper;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.CategoryRepository;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.IngredientRepository;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.NotesRepository;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.RecipeRepository;
-import sk.cagalpte.udemy.sfg.recipeapp.repository.impl.hibernate.RecipeRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.repositories.RecipeRepositoryHibernate;
+import sk.cagalpte.udemy.sfg.recipeapp.services.CategoryRepService;
+import sk.cagalpte.udemy.sfg.recipeapp.services.IngredientRepService;
+import sk.cagalpte.udemy.sfg.recipeapp.services.NotesRepService;
+import sk.cagalpte.udemy.sfg.recipeapp.services.RecipeRepService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Profile("hibernate")
-@Repository
-public class RecipeRepositoryImpl implements RecipeRepository {
+@Service
+public class RecipeRepServiceImpl implements RecipeRepService {
 
     private final RecipeRepositoryHibernate recipeRepositoryHibernate;
 
     private final RecipeDtoMapper recipeDtoMapper;
 
-    private final NotesRepository notesRepository;
+    private final NotesRepService notesRepService;
 
-    private final IngredientRepository ingredientRepository;
+    private final IngredientRepService ingredientRepService;
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryRepService categoryRepService;
 
 
 
-    public RecipeRepositoryImpl(RecipeRepositoryHibernate recipeRepositoryHibernate, RecipeDtoMapper recipeDtoMapper, NotesRepository notesRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository) {
+    public RecipeRepServiceImpl(RecipeRepositoryHibernate recipeRepositoryHibernate, RecipeDtoMapper recipeDtoMapper, NotesRepService notesRepService, IngredientRepService ingredientRepService, CategoryRepService categoryRepService) {
         this.recipeRepositoryHibernate = recipeRepositoryHibernate;
         this.recipeDtoMapper = recipeDtoMapper;
-        this.notesRepository = notesRepository;
-        this.ingredientRepository = ingredientRepository;
-        this.categoryRepository = categoryRepository;
+        this.notesRepService = notesRepService;
+        this.ingredientRepService = ingredientRepService;
+        this.categoryRepService = categoryRepService;
     }
 
 
@@ -44,9 +44,9 @@ public class RecipeRepositoryImpl implements RecipeRepository {
         List<Recipe> recipes = this.recipeRepositoryHibernate.findAll().stream()
                 .map(recipeDTO -> {
                     Recipe recipe = this.recipeDtoMapper.recipeDtoToRecipe(recipeDTO);
-                    recipe.setNotes(this.notesRepository.findByRecipe(recipe));
-                    recipe.setIngredients(this.ingredientRepository.findAllByRecipe(recipe));
-                    recipe.setCategory(this.categoryRepository.findAllByRecipe(recipe));
+                    recipe.setNotes(this.notesRepService.findByRecipe(recipe));
+                    recipe.setIngredients(this.ingredientRepService.findAllByRecipe(recipe));
+                    recipe.setCategory(this.categoryRepService.findAllByRecipe(recipe));
                     return recipe;
                 }).collect(Collectors.toList());
         return recipes;
@@ -55,9 +55,9 @@ public class RecipeRepositoryImpl implements RecipeRepository {
     @Override
     public Recipe findById(Long id) {
         Recipe recipe = this.recipeDtoMapper.recipeDtoToRecipe(this.recipeRepositoryHibernate.findById(id).orElse(null));
-        recipe.setNotes(this.notesRepository.findByRecipe(recipe));
-        recipe.setIngredients(this.ingredientRepository.findAllByRecipe(recipe));
-        recipe.setCategory(this.categoryRepository.findAllByRecipe(recipe));
+        recipe.setNotes(this.notesRepService.findByRecipe(recipe));
+        recipe.setIngredients(this.ingredientRepService.findAllByRecipe(recipe));
+        recipe.setCategory(this.categoryRepService.findAllByRecipe(recipe));
         return recipe;
     }
 
