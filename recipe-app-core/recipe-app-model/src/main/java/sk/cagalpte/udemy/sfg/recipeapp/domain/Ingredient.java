@@ -3,8 +3,7 @@ package sk.cagalpte.udemy.sfg.recipeapp.domain;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Ingredient {
-    private Long id;
+public class Ingredient extends BaseEntity {
 
     private String description;
 
@@ -17,16 +16,9 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(Long id, String description, BigDecimal amount, UnitOfMeasure unitOfMeasure, Recipe recipe) {
-        this.id = id;
-        this.description = description;
-        this.amount = amount;
-        this.unitOfMeasure = unitOfMeasure;
-        this.recipe = recipe;
-    }
-
     public Ingredient(IngredientBuilder ingredientBuilder) {
-        this.setId(ingredientBuilder.id);
+        super(ingredientBuilder);
+
         this.setDescription(ingredientBuilder.description);
         this.setAmount(ingredientBuilder.amount);
         this.setUnitOfMeasure(ingredientBuilder.unitOfMeasure);
@@ -35,14 +27,6 @@ public class Ingredient {
 
     public IngredientBuilder createBuilder() {
         return new Ingredient.IngredientBuilder();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -81,9 +65,9 @@ public class Ingredient {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Ingredient that = (Ingredient) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(description, that.description) &&
+        return Objects.equals(description, that.description) &&
                 Objects.equals(amount, that.amount) &&
                 Objects.equals(unitOfMeasure, that.unitOfMeasure) &&
                 Objects.equals(recipe, that.recipe);
@@ -91,25 +75,24 @@ public class Ingredient {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, amount, unitOfMeasure, recipe);
+        return Objects.hash(super.hashCode(), description, amount, unitOfMeasure, recipe);
     }
 
-    public static class IngredientBuilder {
-        private Long id;
+    public static class IngredientBuilder extends BaseEntityBuilder {
+        protected String description;
 
-        private String description;
+        protected BigDecimal amount;
 
-        private BigDecimal amount;
+        protected UnitOfMeasure unitOfMeasure;
 
-        private UnitOfMeasure unitOfMeasure;
-
-        private Recipe recipe;
+        protected Recipe recipe;
 
         public IngredientBuilder() {
         }
 
+        @Override
         public IngredientBuilder id(Long id) {
-            this.id = id;
+             super.id(id);
             return this;
         }
 

@@ -1,16 +1,12 @@
 package sk.cagalpte.udemy.sfg.recipeapp.domain;
 
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Category {
-
-    @Nullable
-    private Long id;
+public class Category extends BaseEntity {
 
     @NonNull
     private String description;
@@ -20,28 +16,15 @@ public class Category {
     public Category() {
     }
 
-    public Category(@Nullable Long id, String description) {
-        this.id = id;
-        this.description = description;
-    }
-
     public Category(CategoryBuilder categoryBuilder) {
-        this.setId(categoryBuilder.id);
+        super(categoryBuilder);
+
         this.setDescription(categoryBuilder.description);
         this.setRecipes(categoryBuilder.recipes);
     }
 
     public CategoryBuilder createBuilder() {
         return new Category.CategoryBuilder();
-    }
-
-    @Nullable
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(@Nullable Long id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -68,28 +51,29 @@ public class Category {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Category category = (Category) o;
-        return Objects.equals(id, category.id) &&
-                Objects.equals(description, category.description);
+        return Objects.equals(description, category.description) &&
+                Objects.equals(recipes, category.recipes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description);
+        return Objects.hash(super.hashCode(), description, recipes);
     }
 
-    public static class CategoryBuilder {
-        private Long id;
+    public static class CategoryBuilder extends BaseEntityBuilder {
 
-        private String description;
+        protected String description;
 
-        private List<Recipe> recipes = new ArrayList<>();
+        protected List<Recipe> recipes = new ArrayList<>();
 
         public CategoryBuilder() {
         }
 
+        @Override
         public CategoryBuilder id(Long id) {
-            this.id = id;
+             super.id(id);
             return this;
         }
 

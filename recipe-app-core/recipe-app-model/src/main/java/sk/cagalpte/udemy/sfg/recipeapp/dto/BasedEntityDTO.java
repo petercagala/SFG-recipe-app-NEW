@@ -17,7 +17,15 @@ public class BasedEntityDTO implements Serializable {
     }
 
     public BasedEntityDTO(BasedEntityDTOBuilder basedEntityDTOBuilder) {
-        this.id = basedEntityDTOBuilder.id;
+        this.setId(basedEntityDTOBuilder.id);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public BasedEntityDTOBuilder createBuilder() {

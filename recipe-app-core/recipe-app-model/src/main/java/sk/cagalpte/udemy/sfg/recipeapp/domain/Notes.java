@@ -2,8 +2,7 @@ package sk.cagalpte.udemy.sfg.recipeapp.domain;
 
 import java.util.Objects;
 
-public class Notes {
-    private Long id;
+public class Notes extends BaseEntity {
 
     private String recipeNotes;
 
@@ -12,28 +11,15 @@ public class Notes {
     public Notes() {
     }
 
-    public Notes(Long id, String recipeNotes, Recipe recipe) {
-        this.id = id;
-        this.recipeNotes = recipeNotes;
-        this.recipe = recipe;
-    }
-
     public Notes(NotesBuilder notesBuilder) {
-        this.setId(notesBuilder.id);
+        super(notesBuilder);
+
         this.setRecipeNotes(notesBuilder.recipeNotes);
         this.setRecipe(notesBuilder.recipe);
     }
 
     public NotesBuilder createBuilder() {
         return new Notes.NotesBuilder();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getRecipeNotes() {
@@ -56,29 +42,29 @@ public class Notes {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Notes notes = (Notes) o;
-        return Objects.equals(id, notes.id) &&
-                Objects.equals(recipeNotes, notes.recipeNotes) &&
+        return Objects.equals(recipeNotes, notes.recipeNotes) &&
                 Objects.equals(recipe, notes.recipe);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, recipeNotes, recipe);
+        return Objects.hash(super.hashCode(), recipeNotes, recipe);
     }
 
-    public static class NotesBuilder {
-        private Long id;
+    public static class NotesBuilder extends BaseEntityBuilder {
 
-        private String recipeNotes;
+        protected String recipeNotes;
 
-        private Recipe recipe;
+        protected Recipe recipe;
 
         public NotesBuilder() {
         }
 
+        @Override
         public NotesBuilder id(Long id) {
-            this.id = id;
+             super.id(id);
             return this;
         }
 

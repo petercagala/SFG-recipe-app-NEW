@@ -7,8 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Recipe {
-    private Long id;
+public class Recipe extends BaseEntity {
 
     private String description;
 
@@ -37,21 +36,10 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(Long id, String description, Integer prepTime, Integer cookTime, Integer servings, String source, String url, String directions, Byte[] images, Difficulty difficulty) {
-        this.id = id;
-        this.description = description;
-        this.prepTime = prepTime;
-        this.cookTime = cookTime;
-        this.servings = servings;
-        this.source = source;
-        this.url = url;
-        this.directions = directions;
-        this.images = images;
-        this.difficulty = difficulty;
-    }
 
     public Recipe(RecipeBuilder recipeBuilder) {
-        this.setId(recipeBuilder.id);
+        super(recipeBuilder);
+
         this.setDescription(recipeBuilder.description);
         this.setPrepTime(recipeBuilder.prepTime);
         this.setCookTime(recipeBuilder.cookTime);
@@ -68,14 +56,6 @@ public class Recipe {
 
     public RecipeBuilder createBuilder() {
         return new Recipe.RecipeBuilder();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -178,9 +158,9 @@ public class Recipe {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Recipe recipe = (Recipe) o;
-        return Objects.equals(id, recipe.id) &&
-                Objects.equals(description, recipe.description) &&
+        return Objects.equals(description, recipe.description) &&
                 Objects.equals(prepTime, recipe.prepTime) &&
                 Objects.equals(cookTime, recipe.cookTime) &&
                 Objects.equals(servings, recipe.servings) &&
@@ -196,40 +176,40 @@ public class Recipe {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, description, prepTime, cookTime, servings, source, url, directions, difficulty, notes, ingredients, category);
+        int result = Objects.hash(super.hashCode(), description, prepTime, cookTime, servings, source, url, directions, difficulty, notes, ingredients, category);
         result = 31 * result + Arrays.hashCode(images);
         return result;
     }
 
-    public static class RecipeBuilder {
-        private Long id;
+    public static class RecipeBuilder extends BaseEntityBuilder {
 
-        private String description;
+        protected String description;
 
-        private Integer prepTime;
+        protected Integer prepTime;
 
-        private Integer cookTime;
+        protected Integer cookTime;
 
-        private Integer servings;
+        protected Integer servings;
 
-        private String source;
+        protected String source;
 
-        private String url;
+        protected String url;
 
-        private String directions;
+        protected String directions;
 
-        private Byte[] images;
+        protected Byte[] images;
 
-        private Difficulty difficulty;
+        protected Difficulty difficulty;
 
-        private Notes notes;
+        protected Notes notes;
 
-        private List<Ingredient> ingredients = new ArrayList<>();
+        protected List<Ingredient> ingredients = new ArrayList<>();
 
-        private List<Category> category = new ArrayList<>();
+        protected List<Category> category = new ArrayList<>();
 
+        @Override
         public RecipeBuilder id(Long id) {
-            this.id = id;
+             super.id(id);
             return this;
         }
 
