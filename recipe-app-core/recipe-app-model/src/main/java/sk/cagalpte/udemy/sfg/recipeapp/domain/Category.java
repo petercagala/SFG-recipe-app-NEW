@@ -2,7 +2,6 @@ package sk.cagalpte.udemy.sfg.recipeapp.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 public class Category extends BaseEntity {
 
-    @NonNull
     private String description;
 
     private List<Recipe> recipes = new ArrayList<>();
