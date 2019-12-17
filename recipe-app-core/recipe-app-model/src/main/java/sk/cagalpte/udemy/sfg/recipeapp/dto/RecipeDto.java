@@ -1,16 +1,18 @@
 package sk.cagalpte.udemy.sfg.recipeapp.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import sk.cagalpte.udemy.sfg.recipeapp.enums.Difficulty;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.enum_converters.DifficultyConverter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 @Entity(name = "recipe")
-public class RecipeDTO extends BasedEntityDTO {
+@Data
+@NoArgsConstructor
+public class RecipeDto extends BasedEntityDto {
 
     @Column(name = "DESCRIPTION")
     private String description;
@@ -49,19 +51,17 @@ public class RecipeDTO extends BasedEntityDTO {
     private Difficulty difficulty;
 
     @OneToOne(mappedBy = "recipeDTO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private NotesDTO notesDTO;
+    private NotesDto notesDTO;
 
     // Nemoze tu byt fetch = FetchType.EAGER
     @OneToMany(mappedBy = "recipeDTO", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<IngredientDTO> ingredientDTOS = new ArrayList<>();
+    private List<IngredientDto> ingredientDTOS = new ArrayList<>();
 
     @ManyToMany(mappedBy = "recipeDTOS", fetch = FetchType.EAGER)
-    private List<CategoryDTO> categoryDTOS = new ArrayList<>();
+    private List<CategoryDto> categoryDTOS = new ArrayList<>();
 
-    public RecipeDTO() {
-    }
 
-    public RecipeDTO(RecipeDTOBuilder recipeDTOBuilder) {
+    public RecipeDto(RecipeDTOBuilder recipeDTOBuilder) {
         super(recipeDTOBuilder);
 
         this.setDescription(recipeDTOBuilder.description);
@@ -77,131 +77,10 @@ public class RecipeDTO extends BasedEntityDTO {
     }
 
     public RecipeDTOBuilder createBuilder() {
-        return new RecipeDTO.RecipeDTOBuilder();
+        return new RecipeDto.RecipeDTOBuilder();
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getPrepTime() {
-        return prepTime;
-    }
-
-    public void setPrepTime(Integer prepTime) {
-        this.prepTime = prepTime;
-    }
-
-    public Integer getCookTime() {
-        return cookTime;
-    }
-
-    public void setCookTime(Integer cookTime) {
-        this.cookTime = cookTime;
-    }
-
-    public Integer getServings() {
-        return servings;
-    }
-
-    public void setServings(Integer servings) {
-        this.servings = servings;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getDirections() {
-        return directions;
-    }
-
-    public void setDirections(String directions) {
-        this.directions = directions;
-    }
-
-    public Byte[] getImages() {
-        return images;
-    }
-
-    public void setImages(Byte[] images) {
-        this.images = images;
-    }
-
-    public NotesDTO getNotesDTO() {
-        return notesDTO;
-    }
-
-    public void setNotesDTO(NotesDTO notesDTO) {
-        this.notesDTO = notesDTO;
-    }
-
-    public List<IngredientDTO> getIngredientDTOS() {
-        return ingredientDTOS;
-    }
-
-    public void setIngredientDTOS(List<IngredientDTO> ingredientDTOS) {
-        this.ingredientDTOS = ingredientDTOS;
-    }
-
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public List<CategoryDTO> getCategoryDTOS() {
-        return categoryDTOS;
-    }
-
-    public void setCategoryDTOS(List<CategoryDTO> categoryDTOS) {
-        this.categoryDTOS = categoryDTOS;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        RecipeDTO recipeDTO = (RecipeDTO) o;
-        return Objects.equals(description, recipeDTO.description) &&
-                Objects.equals(prepTime, recipeDTO.prepTime) &&
-                Objects.equals(cookTime, recipeDTO.cookTime) &&
-                Objects.equals(servings, recipeDTO.servings) &&
-                Objects.equals(source, recipeDTO.source) &&
-                Objects.equals(url, recipeDTO.url) &&
-                Objects.equals(directions, recipeDTO.directions) &&
-                Arrays.equals(images, recipeDTO.images) &&
-                difficulty == recipeDTO.difficulty &&
-                Objects.equals(notesDTO, recipeDTO.notesDTO) &&
-                Objects.equals(ingredientDTOS, recipeDTO.ingredientDTOS) &&
-                Objects.equals(categoryDTOS, recipeDTO.categoryDTOS);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(super.hashCode(), description, prepTime, cookTime, servings, source, url, directions, difficulty, notesDTO, ingredientDTOS, categoryDTOS);
-        result = 31 * result + Arrays.hashCode(images);
-        return result;
-    }
 
     public static class RecipeDTOBuilder extends BasedEntityDTOBuilder {
 
@@ -223,7 +102,7 @@ public class RecipeDTO extends BasedEntityDTO {
 
         protected Difficulty difficulty;
 
-        protected List<CategoryDTO> categoryDTOS;
+        protected List<CategoryDto> categoryDTOS;
 
         public RecipeDTOBuilder() {
         }
@@ -279,13 +158,13 @@ public class RecipeDTO extends BasedEntityDTO {
             return this;
         }
 
-        public RecipeDTOBuilder categoryDTOS(List<CategoryDTO> categoryDTOS) {
+        public RecipeDTOBuilder categoryDTOS(List<CategoryDto> categoryDTOS) {
             this.categoryDTOS = categoryDTOS;
             return this;
         }
 
-        public RecipeDTO build() {
-            return new RecipeDTO(this);
+        public RecipeDto build() {
+            return new RecipeDto(this);
         }
     }
 }

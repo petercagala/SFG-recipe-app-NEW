@@ -1,11 +1,12 @@
 package sk.cagalpte.udemy.sfg.recipeapp.services.impl.hibernate;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Category;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.CategoryDTO;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.CategoryDto;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDto;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.CategoryDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.RecipeDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.repositories.CategoryRepositoryHibernate;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Profile("hibernate")
 @Service
+@Slf4j
 public class CategoryRepServiceImpl implements CategoryRepService {
 
     private final CategoryRepositoryHibernate categoryRepositoryHibernate;
@@ -38,6 +40,9 @@ public class CategoryRepServiceImpl implements CategoryRepService {
 
     @Override
     public List<Category> findAll() {
+        // Project Lombok
+        log.debug("I'm in the CategoryRepServiceImpl: logger provided by Project Lombok");
+
         List<Category> categories = this.categoryRepositoryHibernate.findAll().stream()
                 .map(categoryDTO -> {
                     return this.categoryDtoMapper.categoryDtoToCategory(categoryDTO);
@@ -52,8 +57,8 @@ public class CategoryRepServiceImpl implements CategoryRepService {
 
     @Override
     public List<Category> findAllByRecipe(Recipe recipe) {
-        RecipeDTO recipeDTO = this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null);
-        List<CategoryDTO> categoryDTOS = this.categoryRepositoryHibernate.findAllByRecipeDTOS(recipeDTO);
+        RecipeDto recipeDTO = this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null);
+        List<CategoryDto> categoryDTOS = this.categoryRepositoryHibernate.findAllByRecipeDTOS(recipeDTO);
         List<Category> categories = categoryDTOS.stream()
                 .map(categoryDTO -> {
                     return this.categoryDtoMapper.categoryDtoToCategory(categoryDTO);
@@ -68,23 +73,23 @@ public class CategoryRepServiceImpl implements CategoryRepService {
 
     @Override
     public Category save(Category category) {
-        List<RecipeDTO> recipeDTOS = new ArrayList<>();
+        List<RecipeDto> recipeDTOS = new ArrayList<>();
         for(Recipe recipe: category.getRecipes()) {
             recipeDTOS.add(this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null));
         }
 
-        CategoryDTO categoryDTO = new CategoryDTO().createBuilder()
+        CategoryDto categoryDTO = new CategoryDto().createBuilder()
                 .description(category.getDescription())
                 .recipeDTOS(recipeDTOS)
                 .build();
-        CategoryDTO categoryDTOSaved = this.categoryRepositoryHibernate.save(categoryDTO);
+        CategoryDto categoryDTOSaved = this.categoryRepositoryHibernate.save(categoryDTO);
 
         return this.categoryDtoMapper.categoryDtoToCategory(categoryDTOSaved);
     }
 
     @Override
     public void delete(Category category) {
-        this.categoryRepositoryHibernate.delete(this.categoryDtoMapper.categoryToCategoryDTO(category));
+        this.categoryRepositoryHibernate.delete(this.categoryDtoMapper.categoryToCategoryDto(category));
     }
 
     @Override

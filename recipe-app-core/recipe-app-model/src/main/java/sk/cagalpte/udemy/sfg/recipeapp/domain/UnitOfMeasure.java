@@ -1,16 +1,15 @@
 package sk.cagalpte.udemy.sfg.recipeapp.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
-import java.util.Objects;
-
+@Data
+@NoArgsConstructor
 public class UnitOfMeasure extends BaseEntity {
 
     @NonNull
     private String unitOfMeasureDescription;
-
-    public UnitOfMeasure() {
-    }
 
     public UnitOfMeasure(UnitOfMeasureBuilder unitOfMeasureBuilder) {
         super(unitOfMeasureBuilder);
@@ -20,28 +19,6 @@ public class UnitOfMeasure extends BaseEntity {
 
     public UnitOfMeasureBuilder createBuilder() {
         return new UnitOfMeasure.UnitOfMeasureBuilder();
-    }
-
-    public String getUnitOfMeasureDescription() {
-        return unitOfMeasureDescription;
-    }
-
-    public void setUnitOfMeasureDescription(String unitOfMeasureDescription) {
-        this.unitOfMeasureDescription = unitOfMeasureDescription;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        UnitOfMeasure that = (UnitOfMeasure) o;
-        return Objects.equals(unitOfMeasureDescription, that.unitOfMeasureDescription);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), unitOfMeasureDescription);
     }
 
     public static class UnitOfMeasureBuilder extends BaseEntityBuilder {

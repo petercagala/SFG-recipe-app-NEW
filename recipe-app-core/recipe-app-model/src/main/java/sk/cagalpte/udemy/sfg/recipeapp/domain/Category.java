@@ -1,11 +1,15 @@
 package sk.cagalpte.udemy.sfg.recipeapp.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+//@Builder
+@Data
+@NoArgsConstructor
 public class Category extends BaseEntity {
 
     @NonNull
@@ -13,8 +17,6 @@ public class Category extends BaseEntity {
 
     private List<Recipe> recipes = new ArrayList<>();
 
-    public Category() {
-    }
 
     public Category(CategoryBuilder categoryBuilder) {
         super(categoryBuilder);
@@ -25,41 +27,6 @@ public class Category extends BaseEntity {
 
     public CategoryBuilder createBuilder() {
         return new Category.CategoryBuilder();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes = recipes;
-    }
-
-    public void addRecipe(Recipe recipe) {
-        this.recipes.add(recipe);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Category category = (Category) o;
-        return Objects.equals(description, category.description) &&
-                Objects.equals(recipes, category.recipes);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), description, recipes);
     }
 
     public static class CategoryBuilder extends BaseEntityBuilder {
@@ -84,6 +51,11 @@ public class Category extends BaseEntity {
 
         public CategoryBuilder recipes(List<Recipe> recipes) {
             this.recipes = recipes;
+            return this;
+        }
+
+        public CategoryBuilder addRecipe(Recipe recipe) {
+            this.recipes.add(recipe);
             return this;
         }
 

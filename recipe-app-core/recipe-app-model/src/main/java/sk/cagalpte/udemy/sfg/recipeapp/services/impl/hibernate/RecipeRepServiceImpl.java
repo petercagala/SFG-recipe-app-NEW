@@ -3,7 +3,7 @@ package sk.cagalpte.udemy.sfg.recipeapp.services.impl.hibernate;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDto;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.RecipeDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.repositories.RecipeRepositoryHibernate;
 import sk.cagalpte.udemy.sfg.recipeapp.services.CategoryRepService;
@@ -63,7 +63,7 @@ public class RecipeRepServiceImpl implements RecipeRepService {
 
     @Override
     public Recipe save(Recipe recipe) {
-        RecipeDTO recipeDTO = new RecipeDTO().createBuilder()
+        RecipeDto recipeDTO = new RecipeDto().createBuilder()
                 .description(recipe.getDescription())
                 .prepTime(recipe.getPrepTime())
                 .cookTime(recipe.getCookTime())
@@ -74,13 +74,13 @@ public class RecipeRepServiceImpl implements RecipeRepService {
                 .images(recipe.getImages())
                 .difficulty(recipe.getDifficulty())
                 .build();
-        RecipeDTO recipeDtoSaved = this.recipeRepositoryHibernate.save(recipeDTO);
+        RecipeDto recipeDtoSaved = this.recipeRepositoryHibernate.save(recipeDTO);
         return this.recipeDtoMapper.recipeDtoToRecipe(recipeDtoSaved);
     }
 
     @Override
     public void delete(Recipe recipe) {
-        this.recipeRepositoryHibernate.delete(this.recipeDtoMapper.recipeToRecipeDTO(recipe));
+        this.recipeRepositoryHibernate.delete(this.recipeDtoMapper.recipeToRecipeDto(recipe));
     }
 
     @Override

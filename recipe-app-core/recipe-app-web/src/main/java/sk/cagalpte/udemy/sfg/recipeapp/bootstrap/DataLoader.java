@@ -1,5 +1,6 @@
 package sk.cagalpte.udemy.sfg.recipeapp.bootstrap;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.*;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Component
+@Slf4j
 public class DataLoader implements CommandLineRunner {
 
     private final CategoryService categoryService;
@@ -33,6 +35,10 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        log.debug("Loading Bootstrap data");
+
+
         Recipe recipe1 = new Recipe().createBuilder()
                 .description("Spicy Grilled Chicken Tacos")
                 .prepTime(20)
@@ -72,22 +78,30 @@ public class DataLoader implements CommandLineRunner {
         Notes notes2Saved = this.notesService.save(notes2);
 
         Category category1 = this.categoryService.findById(1L);
-        category1.addRecipe(recipeSaved1);
+        category1.createBuilder()
+                .addRecipe(recipeSaved1)
+                .build();
         Category category1Saved = this.categoryService.save(category1);
 
         Category category2 = this.categoryService.findById(2L);
-        category2.addRecipe(recipeSaved1);
-        category2.addRecipe(recipeSaved2);
+        category2.createBuilder()
+                .addRecipe(recipeSaved1)
+                .addRecipe(recipeSaved2)
+                .build();
         Category category2Saved = this.categoryService.save(category2);
 
         Category category3 = this.categoryService.findById(3L);
-        category3.addRecipe(recipeSaved1);
-        category3.addRecipe(recipeSaved2);
+        category3.createBuilder()
+                .addRecipe(recipeSaved1)
+                .addRecipe(recipeSaved2)
+                .build();
         Category category3Saved = this.categoryService.save(category3);
 
         Category category4 = this.categoryService.findById(4L);
-        category4.addRecipe(recipeSaved1);
-        category4.addRecipe(recipeSaved2);
+        category4.createBuilder()
+                .addRecipe(recipeSaved1)
+                .addRecipe(recipeSaved2)
+                .build();
         Category category4Saved = this.categoryService.save(category4);
 
         UnitOfMeasure unitOfMeasureTeaspoon = this.unitOfMeasureService.findById(1L);

@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Ingredient;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Recipe;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.IngredientDTO;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.IngredientDto;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDto;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.IngredientDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.RecipeDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.UnitOfMeasureDtoMapper;
@@ -58,8 +58,8 @@ public class IngredientRepServiceImpl implements IngredientRepService {
 
     @Override
     public List<Ingredient> findAllByRecipe(Recipe recipe) {
-        RecipeDTO recipeDTO = this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null);
-        List<IngredientDTO> ingredientDTOS = this.ingredientRepositoryHibernate
+        RecipeDto recipeDTO = this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null);
+        List<IngredientDto> ingredientDTOS = this.ingredientRepositoryHibernate
                 .findAllByRecipeDTO(recipeDTO);
         List<Ingredient> ingredients = ingredientDTOS.stream()
                 .map(ingredientDTO -> {
@@ -70,19 +70,19 @@ public class IngredientRepServiceImpl implements IngredientRepService {
 
     @Override
     public Ingredient save(Ingredient ingredient) {
-        IngredientDTO ingredientDTO = new IngredientDTO().createBuilder()
+        IngredientDto ingredientDTO = new IngredientDto().createBuilder()
                 .description(ingredient.getDescription())
                 .amount(ingredient.getAmount())
                 .unitOfMeasureDTO(this.unitOfMeasureRepositoryHibernate.findById(ingredient.getUnitOfMeasure().getId()).orElse(null))
                 .recipeDTO(this.recipeRepositoryHibernate.findById(ingredient.getRecipe().getId()).orElse(null))
                 .build();
-        IngredientDTO ingredientDtoSaved = this.ingredientRepositoryHibernate.save(ingredientDTO);
+        IngredientDto ingredientDtoSaved = this.ingredientRepositoryHibernate.save(ingredientDTO);
         return this.ingredientDtoMapper.ingredientDtoToIngredient(ingredientDtoSaved);
     }
 
     @Override
     public void delete(Ingredient ingredient) {
-        this.ingredientRepositoryHibernate.delete(this.ingredientDtoMapper.ingredintToIngredientDTO(ingredient));
+        this.ingredientRepositoryHibernate.delete(this.ingredientDtoMapper.ingredientToIngredientDto(ingredient));
     }
 
     @Override

@@ -1,12 +1,14 @@
 package sk.cagalpte.udemy.sfg.recipeapp.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import sk.cagalpte.udemy.sfg.recipeapp.enums.Difficulty;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
+@Data
+@NoArgsConstructor
 public class Recipe extends BaseEntity {
 
     private String description;
@@ -33,9 +35,6 @@ public class Recipe extends BaseEntity {
 
     private List<Category> category = new ArrayList<>();
 
-    public Recipe() {
-    }
-
 
     public Recipe(RecipeBuilder recipeBuilder) {
         super(recipeBuilder);
@@ -56,129 +55,6 @@ public class Recipe extends BaseEntity {
 
     public RecipeBuilder createBuilder() {
         return new Recipe.RecipeBuilder();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getPrepTime() {
-        return prepTime;
-    }
-
-    public void setPrepTime(Integer prepTime) {
-        this.prepTime = prepTime;
-    }
-
-    public Integer getCookTime() {
-        return cookTime;
-    }
-
-    public void setCookTime(Integer cookTime) {
-        this.cookTime = cookTime;
-    }
-
-    public Integer getServings() {
-        return servings;
-    }
-
-    public void setServings(Integer servings) {
-        this.servings = servings;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getDirections() {
-        return directions;
-    }
-
-    public void setDirections(String directions) {
-        this.directions = directions;
-    }
-
-    public Byte[] getImages() {
-        return images;
-    }
-
-    public void setImages(Byte[] images) {
-        this.images = images;
-    }
-
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public Notes getNotes() {
-        return notes;
-    }
-
-    public void setNotes(Notes notes) {
-        this.notes = notes;
-    }
-
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public List<Category> getCategory() {
-        return category;
-    }
-
-    public void setCategory(List<Category> category) {
-        this.category = category;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Recipe recipe = (Recipe) o;
-        return Objects.equals(description, recipe.description) &&
-                Objects.equals(prepTime, recipe.prepTime) &&
-                Objects.equals(cookTime, recipe.cookTime) &&
-                Objects.equals(servings, recipe.servings) &&
-                Objects.equals(source, recipe.source) &&
-                Objects.equals(url, recipe.url) &&
-                Objects.equals(directions, recipe.directions) &&
-                Arrays.equals(images, recipe.images) &&
-                difficulty == recipe.difficulty &&
-                Objects.equals(notes, recipe.notes) &&
-                Objects.equals(ingredients, recipe.ingredients) &&
-                Objects.equals(category, recipe.category);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(super.hashCode(), description, prepTime, cookTime, servings, source, url, directions, difficulty, notes, ingredients, category);
-        result = 31 * result + Arrays.hashCode(images);
-        return result;
     }
 
     public static class RecipeBuilder extends BaseEntityBuilder {

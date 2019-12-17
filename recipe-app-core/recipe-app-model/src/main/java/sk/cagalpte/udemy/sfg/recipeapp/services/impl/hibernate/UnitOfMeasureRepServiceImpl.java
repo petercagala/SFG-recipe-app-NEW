@@ -3,7 +3,7 @@ package sk.cagalpte.udemy.sfg.recipeapp.services.impl.hibernate;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.UnitOfMeasure;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.UnitOfMeasureDTO;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.UnitOfMeasureDto;
 import sk.cagalpte.udemy.sfg.recipeapp.mappers.dto.UnitOfMeasureDtoMapper;
 import sk.cagalpte.udemy.sfg.recipeapp.repositories.UnitOfMeasureRepositoryHibernate;
 import sk.cagalpte.udemy.sfg.recipeapp.services.UnitOfMeasureRepService;
@@ -46,17 +46,17 @@ public class UnitOfMeasureRepServiceImpl implements UnitOfMeasureRepService {
 
     @Override
     public UnitOfMeasure save(UnitOfMeasure unitOfMeasure) {
-        UnitOfMeasureDTO unitOfMeasureDTO = new UnitOfMeasureDTO().createBuilder()
+        UnitOfMeasureDto unitOfMeasureDTO = new UnitOfMeasureDto().createBuilder()
                 .unitOfMeasureDescription(unitOfMeasure.getUnitOfMeasureDescription())
                 .build();
-        UnitOfMeasureDTO unitOfMeasureDtoSaved = this.unitOfMeasureRepositoryHibernate.save(unitOfMeasureDTO);
+        UnitOfMeasureDto unitOfMeasureDtoSaved = this.unitOfMeasureRepositoryHibernate.save(unitOfMeasureDTO);
 
         return this.unitOfMeasureDtoMapper.unitOfMeasureDtoToUnitOfMeasure(unitOfMeasureDtoSaved);
     }
 
     @Override
     public void delete(UnitOfMeasure unitOfMeasure) {
-        this.unitOfMeasureRepositoryHibernate.delete(this.unitOfMeasureDtoMapper.unitOfMeasureToUnitOfMeasureDTO(unitOfMeasure));
+        this.unitOfMeasureRepositoryHibernate.delete(this.unitOfMeasureDtoMapper.unitOfMeasureToUnitOfMeasureDto(unitOfMeasure));
     }
 
     @Override

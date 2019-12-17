@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Notes;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.NotesDTO;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.NotesDto;
 
 @Mapper
 public interface NotesDtoMapper {
@@ -13,9 +13,9 @@ public interface NotesDtoMapper {
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "recipe", target = "recipeDTO")
-    public NotesDTO notesToNotesDto(Notes notes);
+    public NotesDto notesToNotesDto(Notes notes);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "recipeDTO", target = "recipe")
-    public Notes notesDTOtoNotes(NotesDTO notesDTO);
+    public Notes notesDtoToNotes(NotesDto notesDTO);
 }

@@ -1,5 +1,6 @@
 package sk.cagalpte.udemy.sfg.recipeapp.integration.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import sk.cagalpte.udemy.sfg.recipeapp.services.RecipeService;
 import sk.cagalpte.udemy.sfg.recipeapp.services.UnitOfMeasureService;
 
 @Controller
+@Slf4j
 public class IndexController {
     private final CategoryService categoryService;
 
@@ -25,6 +27,8 @@ public class IndexController {
 
     @RequestMapping({"", "/", "index", "index.html"})
     public String getIndexPage(Model model) {
+        log.debug("Getting index page");
+
         Category categories = this.categoryService.findByDescription("American");
         UnitOfMeasure unitOfMeasure = this.unitOfMeasureService.findByUnitOfMeasureDescription("Teaspoon");
         model.addAttribute("categories", categories);

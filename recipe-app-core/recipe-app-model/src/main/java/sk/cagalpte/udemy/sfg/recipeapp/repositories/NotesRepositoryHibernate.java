@@ -2,12 +2,12 @@ package sk.cagalpte.udemy.sfg.recipeapp.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.NotesDTO;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDTO;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.NotesDto;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.RecipeDto;
 
 @Repository
-public interface NotesRepositoryHibernate extends JpaRepository<NotesDTO, Long> {
+public interface NotesRepositoryHibernate extends JpaRepository<NotesDto, Long> {
 
-    public NotesDTO findByRecipeDTO(RecipeDTO recipeDTO);
+    public NotesDto findByRecipeDTO(RecipeDto recipeDTO);
 
 }

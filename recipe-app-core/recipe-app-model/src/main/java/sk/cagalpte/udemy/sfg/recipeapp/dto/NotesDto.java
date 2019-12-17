@@ -1,10 +1,14 @@
 package sk.cagalpte.udemy.sfg.recipeapp.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity(name = "notes")
-public class NotesDTO extends BasedEntityDTO {
+@Data
+@NoArgsConstructor
+public class NotesDto extends BasedEntityDto {
 
     @Column(name = "RECIPE_NOTES")
     @Lob
@@ -17,12 +21,10 @@ public class NotesDTO extends BasedEntityDTO {
 
     @OneToOne
     @JoinColumn(name = "RECIPE_ID", foreignKey = @ForeignKey(name = "FK_notes_RECIPE_ID"))
-    private RecipeDTO recipeDTO;
+    private RecipeDto recipeDTO;
 
-    public NotesDTO() {
-    }
 
-    public NotesDTO(NotesDTOBuilder notesDTOBuilder) {
+    public NotesDto(NotesDTOBuilder notesDTOBuilder) {
         super(notesDTOBuilder);
 
         this.setRecipeNotes(notesDTOBuilder.recipeNotes);
@@ -30,45 +32,14 @@ public class NotesDTO extends BasedEntityDTO {
     }
 
     public NotesDTOBuilder createBuilder() {
-        return new NotesDTO.NotesDTOBuilder();
-    }
-
-    public String getRecipeNotes() {
-        return recipeNotes;
-    }
-
-    public void setRecipeNotes(String recipeNotes) {
-        this.recipeNotes = recipeNotes;
-    }
-
-    public RecipeDTO getRecipeDTO() {
-        return recipeDTO;
-    }
-
-    public void setRecipeDTO(RecipeDTO recipeDTO) {
-        this.recipeDTO = recipeDTO;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        NotesDTO notesDTO = (NotesDTO) o;
-        return Objects.equals(recipeNotes, notesDTO.recipeNotes) &&
-                Objects.equals(recipeDTO, notesDTO.recipeDTO);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), recipeNotes, recipeDTO);
+        return new NotesDto.NotesDTOBuilder();
     }
 
     public static class NotesDTOBuilder extends BasedEntityDTOBuilder {
 
         protected String recipeNotes;
 
-        protected RecipeDTO recipeDTO;
+        protected RecipeDto recipeDTO;
 
         public NotesDTOBuilder() {
         }
@@ -84,13 +55,13 @@ public class NotesDTO extends BasedEntityDTO {
             return this;
         }
 
-        public NotesDTOBuilder recipeDTO(RecipeDTO recipeDTO) {
+        public NotesDTOBuilder recipeDTO(RecipeDto recipeDTO) {
             this.recipeDTO = recipeDTO;
             return this;
         }
 
-        public NotesDTO build() {
-            return new NotesDTO(this);
+        public NotesDto build() {
+            return new NotesDto(this);
         }
     }
 }

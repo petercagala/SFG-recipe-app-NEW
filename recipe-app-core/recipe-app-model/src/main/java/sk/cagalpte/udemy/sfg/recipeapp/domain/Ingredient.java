@@ -1,8 +1,12 @@
 package sk.cagalpte.udemy.sfg.recipeapp.domain;
 
-import java.math.BigDecimal;
-import java.util.Objects;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
+@Data
+@NoArgsConstructor
 public class Ingredient extends BaseEntity {
 
     private String description;
@@ -12,9 +16,6 @@ public class Ingredient extends BaseEntity {
     private UnitOfMeasure unitOfMeasure;
 
     private Recipe recipe;
-
-    public Ingredient() {
-    }
 
     public Ingredient(IngredientBuilder ingredientBuilder) {
         super(ingredientBuilder);
@@ -27,55 +28,6 @@ public class Ingredient extends BaseEntity {
 
     public IngredientBuilder createBuilder() {
         return new Ingredient.IngredientBuilder();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public UnitOfMeasure getUnitOfMeasure() {
-        return unitOfMeasure;
-    }
-
-    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
-        this.unitOfMeasure = unitOfMeasure;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Ingredient that = (Ingredient) o;
-        return Objects.equals(description, that.description) &&
-                Objects.equals(amount, that.amount) &&
-                Objects.equals(unitOfMeasure, that.unitOfMeasure) &&
-                Objects.equals(recipe, that.recipe);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), description, amount, unitOfMeasure, recipe);
     }
 
     public static class IngredientBuilder extends BaseEntityBuilder {

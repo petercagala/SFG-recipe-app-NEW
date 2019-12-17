@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.Category;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.CategoryDTO;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.CategoryDto;
 
 @Mapper
 public interface CategoryDtoMapper {
@@ -12,8 +12,12 @@ public interface CategoryDtoMapper {
     public final CategoryDtoMapper INSTANCE = Mappers.getMapper(CategoryDtoMapper.class);
 
     @Mapping(source = "id", target = "id")
-    public CategoryDTO categoryToCategoryDTO(Category category);
+    public CategoryDto categoryToCategoryDto(Category category);
 
     @Mapping(target = "id", source = "id")
-    public Category categoryDtoToCategory(CategoryDTO categoryDTO);
+    public Category categoryDtoToCategory(CategoryDto categoryDTO);
+
+//    Set<OrderDto> ordersToOrderDtos(Stream<Order> orders);
+//
+//    OrderDto orderToOrderDto(Order order);
 }

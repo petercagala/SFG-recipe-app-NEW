@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import sk.cagalpte.udemy.sfg.recipeapp.domain.UnitOfMeasure;
-import sk.cagalpte.udemy.sfg.recipeapp.dto.UnitOfMeasureDTO;
+import sk.cagalpte.udemy.sfg.recipeapp.dto.UnitOfMeasureDto;
 
 @Mapper
 public interface UnitOfMeasureDtoMapper {
@@ -12,10 +12,10 @@ public interface UnitOfMeasureDtoMapper {
     public final UnitOfMeasureDtoMapper INSTANCE = Mappers.getMapper(UnitOfMeasureDtoMapper.class);
 
     @Mapping(source = "id", target = "id")
-    public UnitOfMeasureDTO unitOfMeasureToUnitOfMeasureDTO(UnitOfMeasure unitOfMeasure);
+    public UnitOfMeasureDto unitOfMeasureToUnitOfMeasureDto(UnitOfMeasure unitOfMeasure);
 
     @Mapping(target = "id", source = "id")
-    public UnitOfMeasure unitOfMeasureDtoToUnitOfMeasure(UnitOfMeasureDTO unitOfMeasureDTO);
+    public UnitOfMeasure unitOfMeasureDtoToUnitOfMeasure(UnitOfMeasureDto unitOfMeasureDTO);
 
 
 }
