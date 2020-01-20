@@ -23,6 +23,10 @@ public class Category extends BaseEntity {
         this.setRecipes(categoryBuilder.recipes);
     }
 
+    public void addRecipe(Recipe recipe) {
+        this.recipes.add(recipe);
+    }
+
     public CategoryBuilder createBuilder() {
         return new Category.CategoryBuilder();
     }

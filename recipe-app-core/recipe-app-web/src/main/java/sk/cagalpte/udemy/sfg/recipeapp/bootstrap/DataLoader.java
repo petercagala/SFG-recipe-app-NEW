@@ -77,32 +77,40 @@ public class DataLoader implements CommandLineRunner {
                 .build();
         Notes notes2Saved = this.notesService.save(notes2);
 
-        Category category1 = this.categoryService.findById(1L);
-        category1.createBuilder()
+        Category categorySaved1 = this.categoryService.findById(1L);
+        Category category1 = new Category().createBuilder()
                 .addRecipe(recipeSaved1)
+                .description(categorySaved1.getDescription())
+                .id(categorySaved1.getId())
                 .build();
-        Category category1Saved = this.categoryService.save(category1);
+        Category category1SavedXXX = this.categoryService.save(category1);
 
-        Category category2 = this.categoryService.findById(2L);
-        category2.createBuilder()
+        Category categorySaved2 = this.categoryService.findById(2L);
+        Category category2 = new Category().createBuilder()
                 .addRecipe(recipeSaved1)
                 .addRecipe(recipeSaved2)
+                .description(categorySaved2.getDescription())
+                .id(categorySaved2.getId())
                 .build();
-        Category category2Saved = this.categoryService.save(category2);
+        Category category2SavedXXX = this.categoryService.save(category2);
 
-        Category category3 = this.categoryService.findById(3L);
-        category3.createBuilder()
+        Category categorySaved3 = this.categoryService.findById(3L);
+        Category category3 = new Category().createBuilder()
                 .addRecipe(recipeSaved1)
                 .addRecipe(recipeSaved2)
+                .description(categorySaved3.getDescription())
+                .id(categorySaved3.getId())
                 .build();
-        Category category3Saved = this.categoryService.save(category3);
+        Category category3SavedXXX = this.categoryService.save(category3);
 
-        Category category4 = this.categoryService.findById(4L);
-        category4.createBuilder()
+        Category categorySaved4 = this.categoryService.findById(4L);
+        Category category4 = new Category().createBuilder()
                 .addRecipe(recipeSaved1)
                 .addRecipe(recipeSaved2)
+                .description(categorySaved4.getDescription())
+                .id(categorySaved4.getId())
                 .build();
-        Category category4Saved = this.categoryService.save(category4);
+        Category category4SavedXXX = this.categoryService.save(category4);
 
         UnitOfMeasure unitOfMeasureTeaspoon = this.unitOfMeasureService.findById(1L);
         UnitOfMeasure unitOfMeasureTablespoon = this.unitOfMeasureService.findById(2L);

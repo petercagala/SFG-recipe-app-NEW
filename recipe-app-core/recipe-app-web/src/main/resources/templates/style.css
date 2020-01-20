@@ -1,0 +1,62 @@
+.container {
+    background-color: #957bbe;
+    border-radius: .70rem;
+    bordel
+}
+
+.container-fluid {
+    background-color: #7bbebb;
+    border-radius: .70rem;
+}
+
+.row {
+    background-color: #bea37b;
+    border-radius: .70rem;
+}
+
+.col, .col-, .col-sm, .col-md, .col-lg, .col-xl,
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+    background-color: #be7bbe;
+    border-radius: .70rem;
+}
+
+.menu li {
+    display: inline-block;
+}
+
+@media (min-width: 768px) {
+    .menu li {
+        display: list-item;
+    }
+}
+
+
+/*
+https://getbootstrap.com/docs/4.3/layout/overview/
+// Extra small devices (portrait phones, less than 576px)
+// No media query for `xs` since this is the default in Bootstrap
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+*/
+

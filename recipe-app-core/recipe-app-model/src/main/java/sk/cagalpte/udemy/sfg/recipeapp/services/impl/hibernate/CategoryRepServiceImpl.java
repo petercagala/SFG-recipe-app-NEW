@@ -68,23 +68,49 @@ public class CategoryRepServiceImpl implements CategoryRepService {
 
     @Override
     public Category findByDescription(String description) {
-        return this.categoryDtoMapper.categoryDtoToCategory(this.categoryRepositoryHibernate.findByDescription(description).orElse(null));
+        CategoryDto categoryDto  = this.categoryRepositoryHibernate.findByDescription(description).orElse(null);
+
+        Category category = this.categoryDtoMapper.categoryDtoToCategory(categoryDto);
+        categoryDto.getRecipeDTOS().stream().forEach(recipeDto -> {
+            category.addRecipe(this.recipeDtoMapper.recipeDtoToRecipe(recipeDto));
+        });
+
+        return category;
     }
 
     @Override
     public Category save(Category category) {
         List<RecipeDto> recipeDTOS = new ArrayList<>();
         for(Recipe recipe: category.getRecipes()) {
-            recipeDTOS.add(this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null));
+            if(!(this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null) == null)) {
+                recipeDTOS.add(this.recipeRepositoryHibernate.findById(recipe.getId()).orElse(null));
+            }
         }
 
-        CategoryDto categoryDTO = new CategoryDto().createBuilder()
-                .description(category.getDescription())
-                .recipeDTOS(recipeDTOS)
-                .build();
+        CategoryDto categoryDTOActuallySaved = this.categoryRepositoryHibernate.findById(category.getId()).orElse(null);
+
+        CategoryDto categoryDTO;
+        if(categoryDTOActuallySaved == null) {
+            categoryDTO = new CategoryDto().createBuilder()
+                    .description(category.getDescription())
+                    .recipeDTOS(recipeDTOS)
+                    .build();
+        } else {
+            categoryDTO = new CategoryDto().createBuilder()
+                    .id(categoryDTOActuallySaved.getId())
+                    .description(category.getDescription())
+                    .recipeDTOS(recipeDTOS)
+                    .build();
+        }
+
         CategoryDto categoryDTOSaved = this.categoryRepositoryHibernate.save(categoryDTO);
 
-        return this.categoryDtoMapper.categoryDtoToCategory(categoryDTOSaved);
+        Category categorySaved = this.categoryDtoMapper.categoryDtoToCategory(categoryDTOSaved);
+        categoryDTOSaved.getRecipeDTOS().stream().forEach(recipeDto -> {
+            categorySaved.addRecipe(this.recipeDtoMapper.recipeDtoToRecipe(recipeDto));
+        });
+
+        return categorySaved;
     }
 
     @Override
